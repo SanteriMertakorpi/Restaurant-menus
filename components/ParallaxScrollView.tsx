@@ -1,5 +1,6 @@
-import type { PropsWithChildren, ReactElement } from 'react';
-import { StyleSheet, useColorScheme, Text } from 'react-native';
+
+import React, { PropsWithChildren, ReactElement, useState } from 'react';
+import { StyleSheet, useColorScheme, Text, Button } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -9,12 +10,13 @@ import Animated, {
 
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from './ThemedText';
+import { useTheme } from '@/context/themeContext';
 
 const HEADER_HEIGHT = 250;
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
-  headerBackgroundColor: { dark: string; light: string };
+  headerBackgroundColor: { light:string; dark:string};
   headerText: string; 
 }>;
 
@@ -27,7 +29,9 @@ export default function ParallaxScrollView({
   const colorScheme = useColorScheme() ?? 'light';
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
+  const {toggleTheme} = useTheme();
 
+ 
   const headerAnimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -46,20 +50,26 @@ export default function ParallaxScrollView({
   });
 
   return (
-    <ThemedView style={styles.container}>
-      <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
-        <Animated.View
-          style={[
-            styles.header,
-            { backgroundColor: headerBackgroundColor[colorScheme] },
-            headerAnimatedStyle,
-          ]}>
-          {headerImage}
-          <ThemedText style={styles.headerText}>{headerText}</ThemedText>
-        </Animated.View>
-        <ThemedView style={styles.content}>{children}</ThemedView>
-      </Animated.ScrollView>
-    </ThemedView>
+    <>
+      
+      <ThemedView style={styles.container}>
+        <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
+          <Animated.View
+            style={[
+              styles.header,
+              { backgroundColor: headerBackgroundColor[colorScheme] },
+              headerAnimatedStyle,
+            ]}>
+            {headerImage}
+            <ThemedText 
+              style={styles.headerText}>{headerText}</ThemedText>
+          </Animated.View>
+          <Button title="Toggle Theme" onPress={toggleTheme} />
+          <ThemedView style={styles.content}>{children}</ThemedView>
+        </Animated.ScrollView>
+      </ThemedView>
+    </>
+    
   );
 }
 
