@@ -1,3 +1,4 @@
+
 import { Collapsible } from "./Collapsible";
 import { ThemedText } from "./ThemedText";
 import React, { useState, useEffect } from "react";
@@ -7,16 +8,24 @@ import { StyleSheet } from "react-native";
 const urls = [
     {
     city: 'Joensuu',
-    restaurants: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=0417&language=fi',
+    restaurants_fi: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=0417&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=0413&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=041704&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=0433&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=041702&language=fi',
-                'https://www.compass-group.fi/menuapi/feed/json?costNumber=041703&language=fi']
+                'https://www.compass-group.fi/menuapi/feed/json?costNumber=041703&language=fi'],
+    restaurants_en: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=0417&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=0413&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=041704&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=0433&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=041702&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=041703&language=en']
     },
+    
+    
     {
     city: 'Helsinki',
-    restaurants: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=1256&language=fi',
+    restaurants_fi: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=1256&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=3003&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=3104&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=3406&language=fi',
@@ -24,32 +33,54 @@ const urls = [
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=3067&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=1251&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=0083&language=fi',
-                'https://www.compass-group.fi/menuapi/feed/json?costNumber=3704&language=fi']
+                'https://www.compass-group.fi/menuapi/feed/json?costNumber=3704&language=fi'],
+    restaurants_en: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=1256&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3003&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3104&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3406&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3100&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3067&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=1251&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=0083&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3704&language=en']
     },
     {
     city: 'Kuopio',
-    restaurants: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=0442&language=fi',
+    restaurants_fi: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=0442&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=0436&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=0437&language=fi',
-                'https://www.compass-group.fi/menuapi/feed/json?costNumber=0439&language=fi']
+                'https://www.compass-group.fi/menuapi/feed/json?costNumber=0439&language=fi'],
+    restaurants_en: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=0442&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=0436&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=0437&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=0439&language=en']
     },
     {
     city: 'Tampere',
-    restaurants: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=0815&language=fi',
-                'https://www.compass-group.fi/menuapi/feed/json?costNumber=0812&language=fi']
+    restaurants_fi: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=0815&language=fi',
+                'https://www.compass-group.fi/menuapi/feed/json?costNumber=0812&language=fi'],
+    restaurants_en: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=0815&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=0812&language=en']
     },
     {
     city: 'Vaasa',
-    restaurants: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=3567&language=fi',
-                'https://www.compass-group.fi/menuapi/feed/json?costNumber=3597&language=fi']
+    restaurants_fi: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=3567&language=fi',
+                'https://www.compass-group.fi/menuapi/feed/json?costNumber=3597&language=fi'],
+    restaurants_en: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=3567&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3597&language=en']
     },
     {
     city: 'Espoo',
-    restaurants: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=3087&language=fi',
+    restaurants_fi: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=3087&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=0190&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=3101&language=fi',
                 'https://www.compass-group.fi/menuapi/feed/json?costNumber=3292&language=fi',
-                'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=fi']
+                'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=fi'],
+    restaurants_en: ['https://www.compass-group.fi/menuapi/feed/json?costNumber=3087&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=0190&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3101&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3292&language=en',
+                    'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=en']
     }
 ]
 
@@ -69,6 +100,9 @@ interface MenuData {
         }>
     }>;
 }
+interface MenusProps {
+    language: string;
+}
 const getMenusFromAPI = async (url: string): Promise<MenuData | null> =>{
     const response = await fetch(url);
     if( !response.ok ) {
@@ -77,15 +111,23 @@ const getMenusFromAPI = async (url: string): Promise<MenuData | null> =>{
     const data = await response.json() as MenuData;
     return data;
 }
-const Menus = () => {
+const Menus: React.FC<MenusProps> = ({ language}) => {
+    
     return(
         <>
         {urls.map((city) => {
             return(
                 <Collapsible title={city.city} key={city.city}>
-                    {city.restaurants.map((restaurantUrl) => (
-                        <RestaurantMenu key={restaurantUrl} url={restaurantUrl} />
-                    ))}
+                    {language === 'fi' ? (
+                        city.restaurants_fi.map((restaurantUrl) => (
+                            <RestaurantMenu key={restaurantUrl} url={restaurantUrl} />
+                        ))
+                    ) : language === 'en' ? (
+                        city.restaurants_en.map((restaurantUrl) => (
+                            <RestaurantMenu key={restaurantUrl} url={restaurantUrl} />
+                        ))
+                    ) : null}
+                    
                 </Collapsible>
             )
         })}
