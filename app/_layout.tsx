@@ -1,17 +1,35 @@
-import { Stack } from "expo-router";
-import {Colors} from "@/constants/Colors";
-import { useColorScheme } from "react-native";
-
+import { Tabs } from "expo-router";
+import { ThemeProvider } from "@/context/themeContext";
+import { ThemedTabs } from "@/components/ThemedTabs";
+import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 
 export default function RootLayout() {
+  
   return (
-    <Stack>
-      <Stack.Screen name="index" options={
-        {
-          title: 'Home',
-          headerShown: false,
-        }
-      }/>
-    </Stack>
+    <ThemeProvider>
+        <ThemedTabs>
+          <Tabs.Screen name="(tabs)/index" options={
+            {
+              title: 'Home',
+              headerShown: false,
+              tabBarIcon: ({color, focused}) => (
+                <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color}  />
+              )
+            }
+          }
+          />
+          <Tabs.Screen name = "(tabs)/settings" options={
+            {
+              title: 'Settings',
+              headerShown: false,
+              tabBarIcon: ({color, focused}) => (
+                <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color}  />
+              )
+            }
+          } 
+          />
+        </ThemedTabs>
+    </ThemeProvider>
+      
   );
 }

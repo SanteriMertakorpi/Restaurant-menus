@@ -4,11 +4,11 @@
     "slug": "restaurant-menus",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/miniconda.png",
+    "icon": "./assets/images/miniconda_icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/miniconda.png",
+      "image": "./assets/images/miniconda_icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
