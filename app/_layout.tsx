@@ -10,7 +10,6 @@ export default function RootLayout() {
         {
           title: 'Home',
           headerShown: false,
-          
         }
       }/>
     </Stack>

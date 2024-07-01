@@ -2,8 +2,13 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { Image, Text, View, StyleSheet } from "react-native";
 import Menus from "@/components/Menus";
 import { ThemeProvider } from "@/context/themeContext";
+import { useState } from "react";
 
 export default function Index() {
+  const [language, setLanguage] = useState('fi');
+  const changeLanguage = () => {
+    setLanguage((prevLanguage) => (prevLanguage === 'fi' ? 'en' : 'fi'));
+  }
   return (
     <ThemeProvider>
       <ParallaxScrollView
@@ -13,8 +18,10 @@ export default function Index() {
           <Image
             source={require('@/assets/images/food.png')}
           />
-        }>
-        <Menus />
+        }
+        changeLanguage={changeLanguage}
+        language={language}>
+        <Menus language={language} />
 
       </ParallaxScrollView>
     </ThemeProvider>
