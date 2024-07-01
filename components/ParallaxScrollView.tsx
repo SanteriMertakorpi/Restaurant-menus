@@ -18,8 +18,6 @@ type Props = PropsWithChildren<{
   headerImage: ReactElement;
   headerBackgroundColor: { light:string; dark:string};
   headerText: string;
-  changeLanguage: () => void;
-  language: string;
 }>;
 
 export default function ParallaxScrollView({
@@ -27,13 +25,11 @@ export default function ParallaxScrollView({
   headerImage,
   headerBackgroundColor,
   headerText,
-  changeLanguage,
-  language
+
 }: Props) {
   const colorScheme = useColorScheme() ?? 'light';
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
-  const {toggleTheme} = useTheme();
 
  
   const headerAnimatedStyle = useAnimatedStyle(() => {
@@ -68,8 +64,6 @@ export default function ParallaxScrollView({
             <ThemedText 
               style={styles.headerText}>{headerText}</ThemedText>
           </Animated.View>
-          <Button title="Toggle Theme" onPress={toggleTheme} />
-          <Button title={language==='fi' ? 'EN' : 'FI'} onPress={changeLanguage} />
           <ThemedView style={styles.content}>{children}</ThemedView>
         </Animated.ScrollView>
       </ThemedView>
